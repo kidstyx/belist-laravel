@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('shopping_lists', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
-            $table->string('name');
+            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->string('title');
             $table->text('description')->nullable();
+            $table->boolean('is_shared')->default(false);
+            $table->enum('status', ['active', 'completed'])->default('active');
             $table->timestamps();
         });
     }

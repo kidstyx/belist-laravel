@@ -59,7 +59,8 @@ class AuthController extends Controller
 
         /** @var \App\Models\MyUserModel $user **/
         $user = Auth::user();
-        $token = $user->createToken('API Token')->plainTextToken;
+        $user->tokens()->delete();
+        $token = $user->createToken('API Token - '.now())->plainTextToken;
 
         return response()->json([
             'status' => true,
